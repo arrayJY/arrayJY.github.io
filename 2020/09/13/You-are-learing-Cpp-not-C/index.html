@@ -35,13 +35,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>如果你对以上的内容毫无兴趣，很明显，<strong>这篇文章不是为你写的，你可以无需在此浪费时间了。</strong></p>
 <h4 id="二、“视C-为一个语言联邦”"><a href="#二、“视C-为一个语言联邦”" class="headerlink" title="二、“视C++为一个语言联邦”"></a>二、“视C++为一个语言联邦”</h4><p>“视C++为一个语言联邦”出自<em>《Effective C++》</em>的条款01，这本书被认为是C++进阶书籍，但是这一条，我认为C++初学者也应该了解它。</p>
 <p>简单讲讲C++的历史（我也很烦历史，但你不了解他你就不知道我接下来讲的是啥）：</p>
-<p>C++一开始是作为C语言的拓展出现的，一开始它的名字叫*C with classes(带类的C)*。后来人为了能让它胜任各种工作，往它上面加了各种杂七杂八的功能，这使得C++变得非常复杂，像是多门小语言组成的一个语言联邦。很多时候你不得不在各种“小语言”模式中切换，而这对初学者而言简直是个噩梦。但你必须了解它，而且其实你也不难适应它。</p>
+<p>C++一开始是作为C语言的拓展出现的，一开始它的名字叫<em>C with classes(带类的C)</em> 。后来人为了能让它胜任各种工作，往它上面加了各种杂七杂八的功能，这使得C++变得非常复杂，像是多门小语言组成的一个语言联邦。很多时候你不得不在各种“小语言”模式中切换，而这对初学者而言简直是个噩梦。但你必须了解它，而且其实你也不难适应它。</p>
 <p>这门语言联邦主要包含：</p>
 <ul>
 <li>C，这简直是废话，作为C语言的拓展C++肯定要兼容C语言，<strong>但是这不是学校把C++当成C教的理由</strong>。</li>
 <li>C with classes，一个支持面向对象的C，<strong>学校几乎是从C不明不白的跳到了这里，让人云里雾里。</strong></li>
 <li>Template，模板，<strong>作为初学者，我们可以几乎不用管这个</strong>，等你有一定基础之后再来学习。</li>
-<li>STL，全称为<em>Standard Template Library(标准模板库)<em>，</em></em>作为初学者，这是你学C++的利器，但是学校几乎不教它。**</li>
+<li>STL，全称为<em>Standard Template Library(标准模板库)</em> ，<strong>作为初学者，这是你学C++的利器，但是学校几乎不教它。</strong></li>
 </ul>
 <p>本文将着重于<strong>面向对象入门和STL的使用</strong>，相信我，一定会讲的很有趣。</p>
 <p>本文写于<strong>2020年3月17日</strong>，此时C++标准已经发展到<em>C++20</em>（此前还有<em>C++98、C++11、C++14和C++17</em>)，许多学校还在可怜地对着<em>C++98</em>抱残守缺，而新的标准带来了许许多多好用的工具（无论对C++初学者还是熟练使用C++的人），所以请你<strong>一定要跟上时代的步伐</strong>，不要做一个考古学家，至少，从<em>C++11</em>开始。</p>
@@ -64,7 +64,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>这个我没有用过，不好评价。但至少它一直在更新。</p>
 </li>
 </ul>
-<p>如果上面的你都觉得不好用，你还可以用*<em>Dev-C++**，这个简单易用，但它已经停止更新了，它只支持到</em>C++11*标准。</p>
+<p>如果上面的你都觉得不好用，你还可以用<strong>Dev-C++</strong> ，这个简单易用，但它已经停止更新了，它只支持到<em>C++11</em>标准。</p>
 <p>现代的IDE带有大量工具，比如代码补全、调试，可以快速帮我们写程序，或者找出程序错误的地方。这些工具都十分有用，<strong>学着使用他们，搜索引擎可以帮你的忙。</strong></p>
 <h3 id="0x02-使用-const-而不是-define定义常量"><a href="#0x02-使用-const-而不是-define定义常量" class="headerlink" title="0x02 使用 const 而不是 #define定义常量"></a>0x02 使用 <code>const</code> 而不是 <code>#define</code>定义常量</h3><p>远古时期的C语言没有<code>const</code>常量的概念，那时候人们喜欢用<code>#define</code>来定义一个符号常量，比如像这样：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PI 3.14</span><br><span class="hljs-keyword">int</span> r = <span class="hljs-number">3</span>;<br><span class="hljs-keyword">double</span> s = r * r * PI;<br></code></pre></td></tr></table></figure>
@@ -122,14 +122,14 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <p>甚至它还有更多的功能：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++">str1 = <span class="hljs-string">&quot;Hello World&quot;</span>;<br>str2 = str1.substr(<span class="hljs-number">0</span>,<span class="hljs-number">5</span>);    <span class="hljs-comment">//返回str1从下标0开始长度为5的子串，即&quot;Hello&quot;</span><br><span class="hljs-keyword">char</span> c = str2[<span class="hljs-number">0</span>];           <span class="hljs-comment">//直接取下标返回char元素, 即&#x27;H&#x27;.                     </span><br></code></pre></td></tr></table></figure>
 
-<p>你可以在*<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/string/basic_string">CppReference/basic_string</a>*里找到<code>std::string</code>的完整文档，这个文档很全也很枯燥，其中<strong>大量涉及初学者不了解的概念</strong>，你也可以配合搜索引擎来解决你的问题。</p>
+<p>你可以在 <em><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/string/basic_string">CppReference/basic_string</a></em> 里找到<code>std::string</code>的完整文档，这个文档很全也很枯燥，其中<strong>大量涉及初学者不了解的概念</strong>，你也可以配合搜索引擎来解决你的问题。</p>
 <h3 id="0x06-动态数组：使用-std-vector"><a href="#0x06-动态数组：使用-std-vector" class="headerlink" title="0x06 动态数组：使用 std::vector"></a>0x06 动态数组：使用 <code>std::vector</code></h3><p>老师可能会跟你讲，数组的长度是固定的，如果你需要在运行时候申请动态长度的数组，可以通过<code>new</code>分配动态内存来实现（我们稍后会讨论这个方法好不好）。</p>
 <p>作为一个新手你可能对C++程序的内存模型一无所知，就算老师告诉你，你也是一知半懂。其实你不用纠结，选<code>std::vector</code>就可以解决你的问题。</p>
 <p><code>std::vector</code>是标准库里的一种<strong>容器</strong>，他可以<strong>包含任意个数的某一类</strong>元素。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;  //包含&lt;vector&gt;头文件</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; a;     <span class="hljs-comment">//一个包含元素类型为int的vector</span><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>*&gt; b; <span class="hljs-comment">//一个包含元素类型为double*的vector</span><br><br>a.push_back(<span class="hljs-number">1</span>);    <span class="hljs-comment">//在末尾添加元素，vector长度会自动增长，此时a[0]即为1</span><br><span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;<br>a.push_back(b);    <span class="hljs-comment">//此时a[0]为1，a[1]为2</span><br>a.pop_back();      <span class="hljs-comment">//删除末尾元素，此时a长度为1，仅有a[0]为1</span><br>a.empty();         <span class="hljs-comment">//vector为空返回true，否则返回false</span><br>a.size();          <span class="hljs-comment">//返回元素的数量</span><br></code></pre></td></tr></table></figure>
 
 <p>很方便是不是！你完全无需关注内存的分配问题，<code>std::vector</code>自动帮你解决了。事实上，我们可以认为<code>std::string</code>就是一个<code>std::vector&lt;char&gt;</code>。</p>
-<p>你可以在*<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/vector">CppReference/vector</a>*里找到更多关于<code>std::vector</code>的信息，当然这也是个枯燥的说明书，你也可以从搜索引擎中寻找更生动的说明。</p>
+<p>你可以在 <em><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/vector">CppReference/vector</a></em> 里找到更多关于<code>std::vector</code>的信息，当然这也是个枯燥的说明书，你也可以从搜索引擎中寻找更生动的说明。</p>
 <h3 id="0x07-当你使用-using-的时候你到底在做些什么"><a href="#0x07-当你使用-using-的时候你到底在做些什么" class="headerlink" title="0x07 当你使用 using 的时候你到底在做些什么"></a>0x07 当你使用 <code>using</code> 的时候你到底在做些什么</h3><h4 id="一、安全的-using"><a href="#一、安全的-using" class="headerlink" title="一、安全的 using"></a>一、安全的 <code>using</code></h4><p>之前我们写过很多句：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br></code></pre></td></tr></table></figure>
 
@@ -203,7 +203,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> *a = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>;<br><span class="hljs-keyword">delete</span> a;<br><span class="hljs-built_in">cout</span> &lt;&lt; *a;    <span class="hljs-comment">//此时a就是一个悬挂指针，直接访问他可能造成程序崩溃！</span><br></code></pre></td></tr></table></figure>
 
 <p><em>悬挂指针</em>指的是那些指向的内存已经被<code>delete</code>的指针，此时的正确做法应该是赶快将这个指针重置为<code>nullptr</code>，来防止他进行其他操作。但是有时候这个指针的使用者可能不知道指向的内存已经释放，比如使用者调用了一个函数，这个函数释放了这个指针指向的内存，但是使用者不一定知道。</p>
-<p>*Modern C++*推荐我们使用智能指针来代替手动管理内存，智能指针定义在头文件<code>&lt;memory&gt;</code>当中。</p>
+<p><em>Modern C++</em> 推荐我们使用智能指针来代替手动管理内存，智能指针定义在头文件<code>&lt;memory&gt;</code>当中。</p>
 <p>智能指针的作用是，当他们的生命周期结束时，他们会自动释放指向的内存。而智能指针的使用方式和普通指针无异。</p>
 <p>智能指针包括三种<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a>、<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>和<a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a>，我们将着重讨论前两种。</p>
 <h4 id="一、独占指针：std-unique-ptr"><a href="#一、独占指针：std-unique-ptr" class="headerlink" title="一、独占指针：std::unique_ptr"></a>一、独占指针：<code>std::unique_ptr</code></h4><p><code>std::unique_ptr</code>表示只有单一变量持有这个指针，对这个指针进行拷贝是禁止的，你只能<em>移动</em>这个指针（这个操作不适合新手，故不在本文的讨论范围）。你可以通过<code>std::make_unique</code>来创建一个<code>std::unique_ptr</code>：</p>
@@ -227,7 +227,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">try</span>&#123;<br>    input();         <span class="hljs-comment">//把有可能抛出错误的代码放到try块中</span><br>&#125;<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">char</span> ch)&#123;     <span class="hljs-comment">//catch会捕捉到数据类型相同的异常</span><br>    ...;             <span class="hljs-comment">//处理异常</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>C++异常机制将强迫你处理异常，并且无需层层回调即可处理，当然，他也会衍生其他的问题，这些需要你自行了解。</p>
-<p>本文到此结束，希望读者对*Modern C++<em>有一个大致的认识，并且能使用它来写代码。如果想要更深入学习</em>C++*，可以从STL入手，C++还有许许多多的内容等待你探索。</p>
+<p>本文到此结束，希望读者对<em>Modern C++</em> 有一个大致的认识，并且能使用它来写代码。如果想要更深入学习C++ ，可以从STL入手，C++还有许许多多的内容等待你探索。</p>
 <p>参考：</p>
 <ul>
 <li><em>C++ Primer 5th</em></li>
