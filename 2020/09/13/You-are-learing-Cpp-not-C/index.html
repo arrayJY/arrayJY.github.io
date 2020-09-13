@@ -224,7 +224,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbo
 
 <p>无论这个函数嵌套了多少层，<code>throw</code>抛出的错误一定能被最上层直接接收到，而且如果你不处理错误的话，<code>throw</code>会直接中断程序——如果你使用错误码机制，你可以选择忽略错误码，这样相当于抱病运行。</p>
 <p>我们可以使用<code>try..catch...</code>来处理错误：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">try</span>&#123;<br>    input();         <span class="hljs-comment">//把有可能抛出错误的代码放到try块中</span><br>&#125;<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">char</span> ch)&#123;     <span class="hljs-comment">//catch会捕捉到数据类型相同的异常</span><br>    ...;             <span class="hljs-comment">//处理异常</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">try</span>&#123;<br>    input();         <span class="hljs-comment">//把有可能抛出错误的代码放到try块中</span><br>&#125;<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">char</span> ch)&#123;     <span class="hljs-comment">//catch会捕捉到数据类型相同的异常</span><br>    ...;             <span class="hljs-comment">//处理异常</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>C++异常机制将强迫你处理异常，并且无需层层回调即可处理，当然，他也会衍生其他的问题，这些需要你自行了解。</p>
 <p>本文到此结束，希望读者对*Modern C++<em>有一个大致的认识，并且能使用它来写代码。如果想要更深入学习</em>C++*，可以从STL入手，C++还有许许多多的内容等待你探索。</p>
