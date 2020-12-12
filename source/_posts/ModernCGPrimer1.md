@@ -5,6 +5,10 @@ tags: 图形学
 mathjax: true
 ---
 
+GAMES101现代图形学入门笔记。
+
+<!-- more -->
+
 ### 变换矩阵
 
 * 缩放矩阵(Scale Matrix)：横向缩放$s_x$，纵向缩放$s_y$
