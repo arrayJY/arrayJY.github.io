@@ -53,3 +53,9 @@ comment:
   notify: false
   verify: false
   avatar: mp
+
+#MathJax Support
+mathjax:
+  enable: true
+  cdn: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+

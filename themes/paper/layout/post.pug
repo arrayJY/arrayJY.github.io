@@ -5,6 +5,8 @@ include ./mixins/horizontalLine.pug
 
 block content
   .main
+    if page.mathjax
+      include ./mathjax.pug
     include ./includes/location-bar.pug
     .main__2-col
       article.post-view__article
