@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>arrayJY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">arrayJY</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      
+  
+    <article id="post-ModernCGPrimer1" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="name">
+      <a href="/2020/12/12/ModernCGPrimer1/">现代图形学入门(1)：变换</a>
+      
+        
+      
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2020-12-12T18:22:40.000Z" itemprop="datePublished">十二月 13, 2020, 2:22 凌晨</time>
+
+          
+            × <span class="article-word-count">1k words</span>
+            
+            × <span class="article-time-to-read">4 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h3 id="变换矩阵"><a href="#变换矩阵" class="headerlink" title="变换矩阵"></a>变换矩阵</h3><ul>
+<li>缩放矩阵(Scale Matrix)：横向缩放$s_x$，纵向缩放$s_y$</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+x' \\
+y'
+\end{bmatrix}
+=
+\begin{bmatrix}
+s_x & 0 \\
+0 & s_y
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+\\</script><ul>
+<li><p>切变矩阵(Shear Matrix)：切变长度为$a$</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}x' \\y'\end{bmatrix}=
+\begin{bmatrix}1 & a \\0 & 1\end{bmatrix}
+\begin{bmatrix}x \\y\end{bmatrix}\\</script></li>
+<li><p>旋转矩阵(Rotate Matrix)：绕原点逆时针旋转角度$\theta$</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}x' \\y'\end{bmatrix}
+=
+\begin{bmatrix}cos\theta & -sin\theta \\
+sin\theta & cos\theta \end{bmatrix}
+\begin{bmatrix} x \\y \end{bmatrix}\\</script></li>
+<li><p>平移矩阵(Translation Matrix)：横向平移$t_x$，纵向平移$t_y$</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{bmatrix}x' \\y' \end{bmatrix}
+=
+\begin{bmatrix}x \\ y\end{bmatrix}+
+\begin{bmatrix} t_x \\ t_y\end{bmatrix}\\</script><p>可以看到，除平移以外其他变换都可以写成一个矩阵乘另一个矩阵的形式。</p>
+<h3 id="齐次矩阵"><a href="#齐次矩阵" class="headerlink" title="齐次矩阵"></a>齐次矩阵</h3><p>为了使得平移和其他线性变换一样，可以表示为一个矩阵乘另一个矩阵，于是引入齐次矩阵。简而言之，齐次矩阵就是将原来的坐标矩阵扩展多一个维度。</p>
+<p>首先将坐标扩展一个维度，如$(x,y)$变为$(x, y, \textbf{w})$。$w=1$时表示为点，$w=0$时表示为向量。</p>
+<script type="math/tex; mode=display">
+二维点(x, y)的齐次矩阵：\begin{pmatrix} x & y &  \textbf{1} \end{pmatrix} \\
+二维向量(x, y)的齐次矩阵：\begin{pmatrix} x & y & \textbf{0} \end{pmatrix}</script><p>如果$w$<strong>不为0或1</strong>，要进行矩阵的归一化，即变形成$\begin{pmatrix} \frac{x}{w} &amp; \frac{y}{w} &amp; 1\end{pmatrix}$的形式。</p>
+<p>这样的好处是可以轻松使用加减来进行点和向量的转换：</p>
+<ul>
+<li>向量 - 向量 = 向量</li>
+<li>向量 + 向量 = 向量</li>
+<li>点 - 点 = 向量</li>
+<li>点 + 点 = 两点连线中点（进行归一化后）</li>
+</ul>
+<p>同样，变换矩阵也要加一个维度，此后线性变换矩阵$\begin{pmatrix} a &amp; b \ c &amp; d\end{pmatrix}$和平移矩阵$\begin{pmatrix}t_x \ t_y\end{pmatrix}$可以合并成一个矩阵$\begin{pmatrix} a &amp; b &amp; t_x \ c &amp; d &amp; t_y \ 0 &amp; 0 &amp; 1\end{pmatrix}$，此后我们只用乘法就可以表示所有的变换。</p>
+<script type="math/tex; mode=display">
+变换矩阵\begin{pmatrix} x' \\ y' \end{pmatrix} 
+=
+\begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix}
++
+\begin{pmatrix} t_x \\ t_y \end{pmatrix}\\
+齐次变换矩阵\begin{pmatrix} x' \\ y' \\ 1 \end{pmatrix} 
+=
+\begin{pmatrix} a & b & t_x \\ c & d & t_y \\ 0 & 0 & 1 \end{pmatrix}
+\begin{pmatrix} x \\ y \\ 1 \end{pmatrix}</script><h3 id="变换的顺序"><a href="#变换的顺序" class="headerlink" title="变换的顺序"></a>变换的顺序</h3><p>一般先进行旋转再进行平移，因为旋转矩阵进行的是<strong>绕原点</strong>旋转，所以平移后旋转会使得图形在旋转时移动。</p>
+<p>同理，如果相对一个顶点不在原点的图形进行绕顶点旋转，可以将图形先平移到顶点和原点重合，再进行旋转，最后平移回去。</p>
+<p>多个变换结合在一起，其实就是多个变换矩阵相乘。矩阵不具有交换律，即$T_1 · T_2 \not= T_2·T_1$。多个矩阵的结合顺序是从右向左的，即$T_n…T_3·T_2·T_1\begin{pmatrix}x \ y \ 1\end{pmatrix}$是从应用顺序是$T_1、T_2…T_n$。</p>
+<h3 id="三维坐标变换"><a href="#三维坐标变换" class="headerlink" title="三维坐标变换"></a>三维坐标变换</h3><p>和二维坐标类似，三维坐标$(x,y,z)$表示为$(x,y,z,\textbf{w})$，当$w=1$时表示三维空间的点，当$w=0$时表示为三维空间向量，如果$w$既不为0又不为1则要进行向量归一化。</p>
+<p>而三维坐标的齐次变换矩阵可以写成：</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}x' \\ y' \\ z' \\ 1 \end{pmatrix}
+=
+\begin{pmatrix}
+a & b & c & t_x \\
+d & e & f & t_y \\
+g & h & i & t_z \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}x \\ y \\ z \\ 1 \end{pmatrix}</script><ul>
+<li><p>缩放矩阵：$x$方向缩放$s_x$倍，$y$方向缩放$s_y$倍，$z$方向缩放$s_z$倍</p>
+<script type="math/tex; mode=display">
+S(s_x, s_y, s_z) = 
+\begin{pmatrix}
+s_x & 0 & 0 & 0 \\
+0 & s_y & 0 & 0 \\
+0 & 0 & s_z & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script></li>
+<li><p>平移矩阵：平移$(t_x, t_y, t_z)$</p>
+<script type="math/tex; mode=display">
+T(t_x, t_y, t_z) =
+\begin{pmatrix}
+0 & 0 & 0 & t_x \\
+0 & 0 & 0 & t_y \\
+0 & 0 & 0 & t_z \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script></li>
+<li><p>绕轴旋转矩阵：平面分别绕$x,y,z$轴旋转$\theta$角度</p>
+<script type="math/tex; mode=display">
+R_x(\theta) =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & cos\theta & -sin\theta & 0 \\
+0 & sin\theta & cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix} \\
+R_y(\theta) =
+\begin{pmatrix}
+cos\theta & 0 & sin\theta & 0 \\
+0 & 1 & 0 & 0 \\
+-sin\theta & 0 & cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}\\
+R_z(\theta) =
+\begin{pmatrix}
+cos\theta & -sin\theta & 0 & 0 \\
+sin\theta & cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}</script></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+  </div>
+</article>
+
+
+
+  
+    <article id="post-You-are-learing-Cpp-not-C" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="name">
+      <a href="/2020/09/13/You-are-learing-Cpp-not-C/">你学的是C++而不是C</a>
+      
+        
+      
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2020-09-13T10:51:02.000Z" itemprop="datePublished">九月 13, 2020, 6:51 晚上</time>
+
+          
+            × <span class="article-word-count">6.7k words</span>
+            
+            × <span class="article-time-to-read">25 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>如果是你是个计算机系学生，你所在的大学正在教授你C++，那么很多时候你不得不重新审视你学到的知识——你真的在学C++吗？<br>
+      
+    </div>
+    
+      <div class="article-more-link">
+        <a href="/2020/09/13/You-are-learing-Cpp-not-C/#more">read more</a>
+      </div>
+    
+    
+    
+  </div>
+</article>
+
+
+
+  
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+
+</body>
+</html>
